@@ -9,6 +9,8 @@ const Notes = () => {
   });
   const [todoArray, setTodoArray] = useState(
     JSON.parse(localStorage.getItem("todos"))
+      ? JSON.parse(localStorage.getItem("todos"))
+      : []
   );
   const handleChange = (e) => {
     setTodos({ ...todos, [e.target.name]: e.target.value });
@@ -17,12 +19,12 @@ const Notes = () => {
 
   const handleSubmit = () => {
     setTodoArray([...todoArray, { title, description, date }]);
-    console.log("submit clicked");
-    console.log("todos", todos);
-    console.log("todaArray", todoArray);
+    window.localStorage.setItem("todos", JSON.stringify(todoArray));
+    console.log(JSON.parse(localStorage.getItem("todos")), "check");
+    window.location.reload(true);
   };
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todoArray));
+    window.localStorage.setItem("todos", JSON.stringify(todoArray));
   }, [todoArray]);
   return (
     <div>
